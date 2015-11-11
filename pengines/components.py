@@ -34,11 +34,12 @@ class Pengine(object):
         else:
             data=json.dumps(query)
         # print ("Sent:" + str(data), "to:", tgt)
-        data+=" .\n"
+        #data+=" .\n"
+        data+=" ."
         rc=requests.post(
             tgt,
             data=data,
-            headers={'Content-Type': 'application/json; charset=UTF-8'}
+            #headers={'Content-Type': 'application/json; charset=UTF-8'}
         )
         if rc.status_code!=requests.codes.ok:
             raise RuntimeError ('status code {}'.format(rc.status_code))
@@ -151,11 +152,12 @@ if __name__=="__main__":
     a(y,8).
     a(y,9).
     a(u,6).
-    :-['test.pl'].
     """
     pl=Pengine("http://localhost:3030/")
     pl.create(src_text=p)
-    for row in pl.query('w(X)',chunk=2):
+    print (pl.id)
+
+    for row in pl.query('a(X,Y)',chunk=2):
         for k,v in row.items():
             print ("{}={}, ".format(k,v), end='')
         print ()
