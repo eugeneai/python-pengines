@@ -33,17 +33,16 @@ class Pengine(object):
             data=query
         else:
             data=json.dumps(query)
-        # print ("Sent:" + str(data), "to:", tgt)
-        #data+=" .\n"
-        data+=" ."
+        #print ("Sent:" + str(data), "to:", tgt)
+        data+=" .\n"
         rc=requests.post(
             tgt,
             data=data,
-            #headers={'Content-Type': 'application/json; charset=UTF-8'}
+            headers={'Content-Type': 'application/json; charset=UTF-8'}
         )
         if rc.status_code!=requests.codes.ok:
             raise RuntimeError ('status code {}'.format(rc.status_code))
-        #print (rc.headers)
+        #print ("Received:",rc)
         rc=json.loads(rc.text)
         data=self._process(rc)
         return rc,data
