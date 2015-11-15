@@ -33,8 +33,8 @@ class Pengine(object):
             data=query
         else:
             data=json.dumps(query)
-        #print ("Sent:" + str(data), "to:", tgt)
         data+=" .\n"
+        # print ("Sent:" + str(data), "to:", tgt)
         rc=requests.post(
             tgt,
             data=data,
@@ -42,7 +42,7 @@ class Pengine(object):
         )
         if rc.status_code!=requests.codes.ok:
             raise RuntimeError ('status code {}'.format(rc.status_code))
-        #print ("Received:",rc)
+        # print ("Received:",rc, rc.text)
         rc=json.loads(rc.text)
         data=self._process(rc)
         return rc,data
@@ -152,7 +152,7 @@ if __name__=="__main__":
     a(y,9).
     a(u,6).
     """
-    pl=Pengine("http://localhost:3030/")
+    pl=Pengine("http://localhost:3020/")
     pl.create(src_text=p)
     print (pl.id)
 
