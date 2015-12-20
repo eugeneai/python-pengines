@@ -139,9 +139,6 @@ class Pengine(object):
     def error(self, rc):
         err=rc['code']
         msg=rc['data']
-
-
-        import pudb; pu.db
         print (self._query)
         raise RuntimeError(msg)
 
