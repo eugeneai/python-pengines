@@ -3,6 +3,8 @@ from zope.interface import implementer
 import json, requests
 import pprint
 
+ALLOWED_KW=set(["template", "chunk", "alias"])
+
 @implementer(IPengine)
 class Pengine(object):
     """Instances of the class provide interface
@@ -44,7 +46,9 @@ class Pengine(object):
             raise RuntimeError ('status code {}'.format(rc.status_code))
         # print ("Received:",rc, rc.text)
         rc=json.loads(rc.text)
+        self._query=query
         data=self._process(rc)
+        del self._query
         return rc,data
 
     def _process(self,rc):
@@ -88,10 +92,18 @@ class Pengine(object):
         rc,data=self._send(query="ask({},[])".format(query))
         return data
 
-    def query(self, query, chunk=None):
-        if chunk==None:
-            chunk=self.chunk
-        opts="[chunk({})]".format(chunk)
+    def query(self, query, **kwargs):
+        kw={}
+        kw.update(kwargs)
+        if not "chunk" in kw:
+            kw['chunk']=self.chunk
+
+        opts=[]
+        for k,v in kw.items():
+            if k in ALLOWED_KW:
+                opts.append(k+"("+str(v)+")")
+        opts="["+",".join(opts)+"]"
+
         if not self.created:
             raise StopIteration
         rc,data=self._send(query="ask({},{})".format(query, opts))
@@ -127,6 +139,10 @@ class Pengine(object):
     def error(self, rc):
         err=rc['code']
         msg=rc['data']
+
+
+        import pudb; pu.db
+        print (self._query)
         raise RuntimeError(msg)
 
     def success(self, data):
