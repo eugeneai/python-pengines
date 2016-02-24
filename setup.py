@@ -31,7 +31,6 @@ setup(name='pengines',
       # dependency_links = [
       #   'https://github.com/eugeneai/rdflib-kyotocabinet/archive/master.zip#egg=rdflib-kyotocabinet-0.1',
       #   'https://github.com/eugeneai/waitress/archive/0.8.11dev0ipv6-1.zip#egg=waitress-0.8.11dev0ipv6-1',
-      #   'https://github.com/mozilla-services/cornice/archive/master.zip#egg=cornice-1.2.0.dev0',
       #   ],
       #package_dir = {'': 'pengines'},
 )
