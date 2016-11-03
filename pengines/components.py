@@ -165,11 +165,11 @@ if __name__=="__main__":
     a(y,9).
     a(u,6).
     """
-    pl=Pengine("http://localhost:3020/")
+    pl=Pengine("http://pengines.swi-prolog.org/")
     pl.create(src_text=p)
     print (pl.id)
 
-    for row in pl.query('a(X,Y)',chunk=2):
+    for row in pl.query('a(X,Y)',chunk=200):
         for k,v in row.items():
             print ("{}={}, ".format(k,v), end='')
         print ()
