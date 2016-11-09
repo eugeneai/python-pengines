@@ -170,7 +170,7 @@ if __name__=="__main__":
     pl.create(src_text=p)
     print (pl.id)
 
-    for row in pl.query('a(X,Y)',chunk=20):
+    for row in pl.query('a(X,Y)',chunk=200):
         for k,v in row.items():
             print ("{}={}, ".format(k,v), end='')
         print ()
