@@ -164,12 +164,13 @@ if __name__=="__main__":
     a(y,8).
     a(y,9).
     a(u,6).
+    a(X,Y):-member(X,[1,2,3,4]), member(Y,[a,b,c]).
     """
-    pl=Pengine("http://localhost:3020/")
+    pl=Pengine("http://irnok.net:3030/")
     pl.create(src_text=p)
     print (pl.id)
 
-    for row in pl.query('a(X,Y)',chunk=2):
+    for row in pl.query('a(X,Y)',chunk=20):
         for k,v in row.items():
             print ("{}={}, ".format(k,v), end='')
         print ()
